@@ -1,14 +1,14 @@
-package com.example.newsfeed.dagger
+package com.example.dagger.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsfeed.utils.ViewModelFactory
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
+
 
 @Module
-internal abstract class ViewModelFactoryModule {
+ abstract class ViewModelFactoryModule {
 
     @Binds
-    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
+    abstract fun bindViewModelFactory(factory: ViewModelProviderFactory): ViewModelProvider.Factory
 }
