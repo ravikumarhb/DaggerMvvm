@@ -1,14 +1,15 @@
-package com.example.dagger.di
+package com.example.dagger.di.mappers
 
 import androidx.lifecycle.ViewModelProvider
+import com.example.dagger.utils.ViewModelProviderFactory
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
 
 
 @Module
- abstract class ViewModelFactoryModule {
+abstract class ViewModelFactoryModule {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelProviderFactory): ViewModelProvider.Factory
+
 }
