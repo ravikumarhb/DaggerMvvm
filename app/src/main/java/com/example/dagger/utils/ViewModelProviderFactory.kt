@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
-
+// Created to provide arguments in ViewModel, part of Dagger
 class ViewModelProviderFactory
 @Inject constructor(private val viewModels: MutableMap<Class<out ViewModel>, Provider<ViewModel>>) :
     ViewModelProvider.Factory {

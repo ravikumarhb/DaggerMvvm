@@ -1,7 +1,6 @@
 package com.example.dagger.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.example.dagger.utils.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
+// Fragment that would be launched on item selected from Main Fragment
 class DetailFragment : DaggerFragment() {
 
     @Inject
@@ -42,16 +42,12 @@ class DetailFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.e("-----", data)
-
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(container?.context),
             R.layout.detail_fragment,
             container,
             false
         )
-
-
         return binding.root
     }
 
@@ -65,7 +61,6 @@ class DetailFragment : DaggerFragment() {
 
     override fun onResume() {
         super.onResume()
-
         web = binding.webview
         web.loadUrl(urlToLoad)
         web.webViewClient = WebViewClient()

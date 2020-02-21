@@ -9,8 +9,10 @@ import com.example.dagger.R
 import com.example.dagger.databinding.NewsItemViewBinding
 import com.example.dagger.network.NetworkNews
 
+// Adapter to load data in RecyclerView
 class NewsAdapter(val callback: NewsClick) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
+    // Holds data to be displayed
      var newsList: List<NetworkNews> = emptyList()
 
     set(value) {
@@ -18,6 +20,7 @@ class NewsAdapter(val callback: NewsClick) : RecyclerView.Adapter<NewsAdapter.Ne
             notifyDataSetChanged()
     }
 
+    // Create view to be passed to view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
 
         val binding: NewsItemViewBinding = DataBindingUtil.inflate(
@@ -30,10 +33,12 @@ class NewsAdapter(val callback: NewsClick) : RecyclerView.Adapter<NewsAdapter.Ne
         return NewsViewHolder(binding)
     }
 
+    // returns number of items in recycler view
     override fun getItemCount(): Int {
         return newsList.size
     }
 
+    // binds view to data based on position
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.viewBinding.also {
             it.item = newsList.get(position)
@@ -41,6 +46,7 @@ class NewsAdapter(val callback: NewsClick) : RecyclerView.Adapter<NewsAdapter.Ne
         }
     }
 
+    // view holder pattern defines layout of each entry in view
     class NewsViewHolder(val viewBinding: NewsItemViewBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
 
@@ -50,6 +56,7 @@ class NewsAdapter(val callback: NewsClick) : RecyclerView.Adapter<NewsAdapter.Ne
         }
     }
 
+    // click handler for view selected
     class NewsClick(val block: (NetworkNews) -> Unit) {
         fun onNewsClick(news: NetworkNews) {
             block(news)

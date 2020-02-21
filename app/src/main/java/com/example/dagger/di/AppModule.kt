@@ -1,7 +1,6 @@
 package com.example.dagger.di
 
 //import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import android.util.Log
 import com.example.dagger.network.NewsFeedApi
 import dagger.Module
 import dagger.Provides
@@ -11,9 +10,12 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+
+// Application wide used classes like retrofit and sub dependencies
 @Module
 class AppModule {
 
+    // added to that country and api key is passed in every request
     class Intercept :
         Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
@@ -28,8 +30,6 @@ class AppModule {
                 .url(url)
                 .build()
 
-            Log.e("----", newRequest.toString())
-
             return chain.proceed(newRequest)
         }
     }
@@ -39,6 +39,7 @@ class AppModule {
         return Intercept()
     }
 
+    // Client uses Interceptor provided above
     @Provides
     fun getHttpClient(intercept: Intercept): OkHttpClient {
         var client: OkHttpClient = OkHttpClient().newBuilder()
@@ -49,6 +50,7 @@ class AppModule {
     }
 
 
+    // creates Retrofit and on injected HTTP client
     @Provides
     fun providesRetrofitInstance(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -58,6 +60,7 @@ class AppModule {
             .build()
     }
 
+    // create newsfeedapi for GET calls
     @Provides
     fun providesNewFeedApi(retrofit: Retrofit): NewsFeedApi {
         return retrofit.create(NewsFeedApi::class.java)

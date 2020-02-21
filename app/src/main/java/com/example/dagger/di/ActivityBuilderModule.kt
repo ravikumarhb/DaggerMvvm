@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 
+// Activites that would need injection
 @Module
 abstract class ActivityBuilderModule {
 

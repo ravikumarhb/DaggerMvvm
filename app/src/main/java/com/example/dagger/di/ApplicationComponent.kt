@@ -8,7 +8,7 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 
-
+// Main Dagger component specifing dependencies
 @Component(
     modules = [ActivityBuilderModule::class,
         ViewModelFactoryModule::class,

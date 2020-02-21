@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 
+// Default template for passing data to view models will be used in Factory pattern
 @Module
 abstract class MainViewModelsModule {
 

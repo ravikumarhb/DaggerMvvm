@@ -5,7 +5,7 @@ import com.example.dagger.ui.main.MainFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-
+// All fragments that would need injection
 @Module
 abstract class FragmentBuilderModule {
 

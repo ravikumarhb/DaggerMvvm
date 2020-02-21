@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.MapKey
 import kotlin.reflect.KClass
 
+// Created to provide arguments in ViewModel, part of Dagger
 @Target(AnnotationTarget.FUNCTION,
     AnnotationTarget.PROPERTY_GETTER,
     AnnotationTarget.PROPERTY_SETTER)

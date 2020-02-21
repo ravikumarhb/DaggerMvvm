@@ -18,6 +18,7 @@ import com.example.dagger.utils.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
+// Entry Fragment when App launched
 class MainFragment : DaggerFragment() {
 
     companion object {
@@ -45,11 +46,13 @@ class MainFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // create adapter, pass url to load based on item selected
         newsAdapter = NewsAdapter(NewsAdapter.NewsClick {
             var bundle = bundleOf("newsitem" to it.url)
             findNavController().navigate(R.id.action_main_fragment_to_detail_fragment, bundle)
         })
 
+        // configure recycler view
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = newsAdapter
@@ -58,12 +61,13 @@ class MainFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel =
             ViewModelProviders.of(this, viewModelProviderFactory).get(MainViewModel::class.java)
 
+        // Populate the adapter based on response from API call
         viewModel.dataFun.observe(viewLifecycleOwner, Observer { items ->
             items?.apply {
-                Log.e("----" , items.articles.toString())
                 newsAdapter.newsList = items.articles
             }
         })
