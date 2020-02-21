@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/main_fragment"
+    android:id="@+id/navigation">
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.example.dagger.ui.main.MainFragment">
+
+        <action
+            android:id="@+id/action_main_fragment_to_detail_fragment"
+            app:destination="@id/detail_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="com.example.dagger.ui.main.DetailFragment">
+
+        <action
+            android:id="@+id/action_detail_fragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+
+</navigation>
