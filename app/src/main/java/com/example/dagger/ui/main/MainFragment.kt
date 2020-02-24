@@ -1,7 +1,6 @@
 package com.example.dagger.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.IdlingResource
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.example.dagger.R
 import com.example.dagger.adapter.NewsAdapter
 import com.example.dagger.databinding.MainFragmentBinding
 import com.example.dagger.utils.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+
 
 // Entry Fragment when App launched
 class MainFragment : DaggerFragment() {
@@ -31,8 +34,20 @@ class MainFragment : DaggerFragment() {
 
     private lateinit var newsAdapter: NewsAdapter
 
+    private lateinit var espressoTestIdlingResource: IdlingResource
+
+    init {
+        val espressoTestIdlingResource =
+            CountingIdlingResource("Network_Call")
+
+    }
+
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+
+    fun getEspressoIdlingResourceForMainActivity() : IdlingResource {
+        return espressoTestIdlingResource
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,10 +80,14 @@ class MainFragment : DaggerFragment() {
         viewModel =
             ViewModelProviders.of(this, viewModelProviderFactory).get(MainViewModel::class.java)
 
+
+        com.example.dagger.utils.IdlingResource.increment()
+
         // Populate the adapter based on response from API call
         viewModel.dataFun.observe(viewLifecycleOwner, Observer { items ->
             items?.apply {
                 newsAdapter.newsList = items.articles
+                com.example.dagger.utils.IdlingResource.decrement()
             }
         })
 
